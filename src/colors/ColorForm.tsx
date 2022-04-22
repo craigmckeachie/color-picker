@@ -1,19 +1,23 @@
 import React, { SyntheticEvent, useState } from 'react';
 
-function ColorForm() {
-  const [color, setColor] = useState<string>('');
+interface ColorFormProps {
+  onSave: (color: any) => void;
+}
+
+function ColorForm({ onSave }: ColorFormProps) {
+  const [colorName, setColorName] = useState<string>('');
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log(color);
+    onSave({ id: Math.random(), name: colorName });
   };
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Enter Color Name"
-        value={color}
-        onChange={(event) => setColor(event.target.value)}
+        value={colorName}
+        onChange={(event) => setColorName(event.target.value)}
       />
       <button type="submit">Add</button>
     </form>
